@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center items-center mx-auto gap-10">
     <div class="flex w-[35vw]">
-      <Barber404 />
+      ERROR 404
     </div>
     <div class="flex flex-col w-[30vw]">
       <div class="flex flex-col mb-6">
@@ -17,5 +17,4 @@
 </template>
 
 <script setup lang="ts">
-import Barber404 from '../assets/Icons/Barber404.vue';
 </script>

@@ -6,9 +6,12 @@
     },
     {
       "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.vitest.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "types": ["vuetify", "cypress", "node", "cypress-file-upload"],
+    "target": "es5",
+    "lib": ["es5", "dom"]
+  },
+  "include": ["**/*.ts"]
 }

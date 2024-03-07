@@ -5,12 +5,20 @@ import Register from '../views/Register.vue';
 import SignOut from '../views/SignOut.vue';
 import Admin from '../views/dashboard/Admin.vue';
 import Profile from '../views/Profile.vue';
+import EntryPage from '../views/EntryPage.vue';
+import RegisterCompanies from '../views/RegisterCompanies.vue';
+import LoginCompanies from '../views/LoginCompanies.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
+      name: 'entryPage',
+      component: EntryPage,
+    },
+    {
+      path: '/home',
       name: 'home',
       component: Homeview,
     },
@@ -23,6 +31,16 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: Login,
+    },
+    {
+      path: '/register_companies',
+      name: 'register_companies',
+      component: RegisterCompanies,
+    },
+    {
+      path: '/login_companies',
+      name: 'login_companies',
+      component: LoginCompanies,
     },
     {
       path: '/signOut',

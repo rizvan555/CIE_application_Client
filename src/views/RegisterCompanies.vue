@@ -28,6 +28,54 @@
               {{ errors.username }}
             </div>
           </fieldset>
+
+          <fieldset class="form-group">
+            <input
+              v-model="formData.password"
+              class="form-control form-control-lg"
+              :class="{ 'border-red-500': errors.password }"
+              type="password"
+              placeholder="Password"
+              autocomplete="current-password"
+              @input="clearError('password')"
+              name="password"
+            />
+            <div v-if="errors.password" class="text-red-500">
+              {{ errors.password }}
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <input
+              v-model="formData.company_name"
+              class="form-control form-control-lg"
+              :class="{ 'border-red-500': errors.company_name }"
+              type="text"
+              placeholder="Company Name"
+              autocomplete="company_name"
+              @input="clearError('company_name')"
+              name="company_name"
+            />
+            <div v-if="errors.email" class="text-red-500">
+              {{ errors.company_name }}
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <input
+              v-model="formData.phone"
+              class="form-control form-control-lg"
+              :class="{ 'border-red-500': errors.phone }"
+              type="text"
+              placeholder="Phone"
+              @input="clearError('phone')"
+              name="phone"
+            />
+            <div v-if="errors.phone" class="text-red-500">
+              {{ errors.phone }}
+            </div>
+          </fieldset>
+
           <fieldset class="form-group">
             <input
               v-model="formData.email"
@@ -46,32 +94,17 @@
 
           <fieldset class="form-group">
             <input
-              v-model="formData.phone"
+              v-model="formData.address"
               class="form-control form-control-lg"
-              :class="{ 'border-red-500': errors.phone }"
+              :class="{ 'border-red-500': errors.address }"
               type="text"
-              placeholder="Telephone"
-              @input="clearError('phone')"
-              name="phone"
+              placeholder="Company adress"
+              autocomplete="address"
+              @input="clearError('address')"
+              name="address"
             />
-            <div v-if="errors.phone" class="text-red-500">
-              {{ errors.phone }}
-            </div>
-          </fieldset>
-
-          <fieldset class="form-group">
-            <input
-              v-model="formData.password"
-              class="form-control form-control-lg"
-              :class="{ 'border-red-500': errors.password }"
-              type="password"
-              placeholder="Password"
-              autocomplete="current-password"
-              @input="clearError('password')"
-              name="password"
-            />
-            <div v-if="errors.password" class="text-red-500">
-              {{ errors.password }}
+            <div v-if="errors.email" class="text-red-500">
+              {{ errors.email }}
             </div>
           </fieldset>
 
@@ -100,9 +133,11 @@ const model = ref('');
 
 const formData = ref<FormData>({
   username: '',
-  email: '',
   password: '',
+  address: '',
+  email: '',
   phone: '',
+  company_name: '',
 });
 
 const isSubmitting = ref(false);
@@ -139,7 +174,7 @@ const onSubmit = async (e: any) => {
     await schema.validate(formData.value, { abortEarly: false });
 
     const response = await axios.post(
-      '/api/api/authentication/register',
+      '/api/api/authentication/register_companies',
       formData.value,
       config
     );
@@ -150,7 +185,7 @@ const onSubmit = async (e: any) => {
 
     console.log('Server Response:', response.data);
 
-    router.push({ name: 'login' });
+    router.push({ name: 'login_companies' });
   } catch (error: any) {
     if (error.name === 'ValidationError') {
       errors.value = error.inner.reduce((acc: Errors, err: any) => {

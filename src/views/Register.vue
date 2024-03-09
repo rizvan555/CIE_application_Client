@@ -124,9 +124,6 @@ const clearError = (field: keyof Errors) => {
   errors.value[field] = '';
 };
 
-
-
-
 const onSubmit = async (e: any) => {
   e.preventDefault();
   try {

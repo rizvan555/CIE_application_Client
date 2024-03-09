@@ -114,7 +114,7 @@ const onSubmit = async (e: any) => {
       credentials: 'include',
     };
     const response = await axios.post(
-      '/api/api/authentication/login',
+      '/api/api/authentication/login_companies',
       formData.value,
       config
     );
@@ -138,7 +138,7 @@ const onSubmit = async (e: any) => {
       if (response.data.redirect) {
         router.push(response.data.redirect);
       } else {
-        router.push({ name: 'home' });
+        router.push({ name: 'save_products' });
       }
     }
   } catch (error: any) {

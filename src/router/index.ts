@@ -8,6 +8,7 @@ import Profile from '../views/Profile.vue';
 import EntryPage from '../views/EntryPage.vue';
 import RegisterCompanies from '../views/RegisterCompanies.vue';
 import LoginCompanies from '../views/LoginCompanies.vue';
+import SaveProducts from '../views/SaveProducts.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +32,11 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: Login,
+    },
+    {
+      path: '/save_products',
+      name: 'save_products',
+      component: SaveProducts,
     },
     {
       path: '/register_companies',

@@ -9,11 +9,11 @@
             <h1
               class="text-xs-center text-center text-2xl my-6 font-bold login-title"
             >
-              LOGIN
+              LOGIN BENUTZER
             </h1>
             <p class="text-xs-center mb-2">
               <router-link :to="{ name: 'register' }">
-                Need an account?
+                Benötigen Sie ein Konto?
               </router-link>
             </p>
 
@@ -29,7 +29,7 @@
                   :class="{ 'border-red-500': errors.username }"
                   id="username-input"
                   type="text"
-                  placeholder="Username"
+                  placeholder="Benutzername"
                   @input="clearError('username')"
                   name="username"
                   method="post"

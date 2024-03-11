@@ -5,10 +5,12 @@
     >
       <div class="flex flex-col gap-2 px-6 py-2">
         <h1 class="text-xs-center text-center text-2xl my-10 font-bold">
-          SIGN UP
+          BENUTZER REGISTRIEREN
         </h1>
         <p class="text-xs-center">
-          <router-link :to="{ name: 'login' }"> Have an account? </router-link>
+          <router-link :to="{ name: 'login' }">
+            Haben Sie bereits ein Konto?
+          </router-link>
         </p>
 
         <form @submit.prevent="onSubmit" class="flex flex-col gap-3">
@@ -18,7 +20,7 @@
               class="form-control form-control-lg"
               :class="{ 'border-red-500': errors.username }"
               type="text"
-              placeholder="Username"
+              placeholder="Benutzername"
               @input="clearError('username')"
               name="username"
             />
@@ -48,7 +50,7 @@
               class="form-control form-control-lg"
               :class="{ 'border-red-500': errors.phone }"
               type="text"
-              placeholder="Telephone"
+              placeholder="Phone"
               @input="clearError('phone')"
               name="phone"
             />

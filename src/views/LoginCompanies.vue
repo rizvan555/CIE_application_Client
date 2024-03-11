@@ -13,7 +13,7 @@
             </h1>
             <p class="text-xs-center mb-2">
               <router-link :to="{ name: 'register_companies' }">
-                Need an account?
+                Benötigen Sie ein Konto?
               </router-link>
             </p>
 
@@ -29,7 +29,7 @@
                   :class="{ 'border-red-500': errors.username }"
                   id="username-input"
                   type="text"
-                  placeholder="Username"
+                  placeholder="Benutzername"
                   @input="clearError('username')"
                   name="username"
                   method="post"
@@ -86,7 +86,6 @@ const formData = ref<FormDataLogin>({
 });
 
 const isSubmitting = ref(false);
-
 const schema = Yup.object().shape({
   username: Yup.string()
     .min(3, 'Der Benutzername muss mindestens 3 Zeichen sein')
@@ -121,25 +120,12 @@ const onSubmit = async (e: any) => {
 
     const userToken = response.data.accessToken;
     setItem('token', userToken);
-    console.log('Token set to localStorage:', getItem('token'));
 
-    if (
-      formData.value.username === 'rizvan' &&
-      formData.value.password === '111111'
-    ) {
-      router.afterEach(() => {
-        window.location.reload();
-      });
-      router.push('/dashboard/admin');
+    
+    if (response.data.redirect) {
+      router.push(response.data.redirect);
     } else {
-      router.afterEach(() => {
-        window.location.reload();
-      });
-      if (response.data.redirect) {
-        router.push(response.data.redirect);
-      } else {
-        router.push({ name: 'save_products' });
-      }
+      router.push({ name: 'save_products' });
     }
   } catch (error: any) {
     if (error.name === 'ValidationError') {

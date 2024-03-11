@@ -5,11 +5,11 @@
     >
       <div class="flex flex-col gap-2 px-6 py-2">
         <h1 class="text-xs-center text-center text-2xl my-10 font-bold">
-          REGISTER UNTERNEHMEN
+          UNTERNEHMEN REGISTRIEREN
         </h1>
         <p class="text-xs-center">
           <router-link :to="{ name: 'login_companies' }">
-            Have an account?
+            Haben Sie bereits ein Konto?
           </router-link>
         </p>
 
@@ -20,7 +20,7 @@
               class="form-control form-control-lg"
               :class="{ 'border-red-500': errors.username }"
               type="text"
-              placeholder="Username"
+              placeholder="Benutzername"
               @input="clearError('username')"
               name="username"
             />
@@ -51,7 +51,7 @@
               class="form-control form-control-lg"
               :class="{ 'border-red-500': errors.company_name }"
               type="text"
-              placeholder="Company Name"
+              placeholder="Unternehmensnamen"
               autocomplete="company_name"
               @input="clearError('company_name')"
               name="company_name"
@@ -98,7 +98,7 @@
               class="form-control form-control-lg"
               :class="{ 'border-red-500': errors.address }"
               type="text"
-              placeholder="Company adress"
+              placeholder="Adresse"
               autocomplete="address"
               @input="clearError('address')"
               name="address"
@@ -113,7 +113,7 @@
             class="bg-indigo-500 text-white rounded py-3 px-2 font-semibold hover:bg-indigo-700 active:scale-95 transition-all login-button"
             type="submit"
           >
-            REGISTER
+            REGISTRIEREN
           </button>
         </form>
       </div>

@@ -4,45 +4,46 @@
   </div>
 
   <div class="flex flex-col items-center my-2">
-    <div class="flex gap-32">
+    <div class="flex gap-48">
       <div class="flex flex-col gap-3">
         <fieldset class="form-group flex items-center gap-2">
-          <h3 class="w-[10vw] font-bold text-xl">Firma:</h3>
+          <h3 class="w-[10vw] font-bold text-[20px]">Firma:</h3>
           <input
             required
             v-model="firma"
-            class="form-control form-control-lg w-[30vw]"
+            class="form-control form-control-lg w-[30vw] text-[17px]"
             type="text"
             aria-label="firma"
             name="firma"
           />
         </fieldset>
         <div class="flex items-center gap-2">
-          <h3 class="w-[10vw] font-bold text-xl">Produktname:</h3>
+          <h3 class="w-[10vw] font-bold text-[20px]">Produktname:</h3>
           <input
             required
             v-model="produktName"
-            class="form-control form-control-lg w-[30vw]"
+            class="form-control form-control-lg w-[30vw] text-[17px]"
             type="text"
             aria-label="produktName"
             name="produktName"
           />
         </div>
         <div class="flex items-center gap-2">
-          <h3 class="w-[10vw] font-bold text-xl">Gewicht:</h3>
+          <h3 class="w-[10vw] font-bold text-[20px]">Gewicht (kg):</h3>
           <input
             required
             v-model="gewicht"
-            class="form-control form-control-lg w-[30vw]"
-            type="number"
+            class="form-control form-control-lg w-[30vw] text-[17px]"
+            type="text"
             aria-label="gewicht"
             name="gewicht"
+            @input="formatGewicht"
           />
         </div>
         <div class="flex items-center gap-2">
           <h3 class="w-[10vw] font-bold text-xl">Produkt Bild:</h3>
           <input
-            class="form-control w-[30vw]"
+            class="form-control w-[30vw] text-[15px]"
             type="file"
             id="formFileMultiple"
             multiple
@@ -123,7 +124,7 @@
     </div>
 
     <button
-      class="btn btn-primary my-10 w-[30vw] active:scale-95 transition-all"
+      class="btn btn-primary mt-14 mb-20 w-[30vw] active:scale-95 transition-all"
       type="submit"
       @click="showInputs"
     >
@@ -131,85 +132,91 @@
     </button>
   </div>
 
-  <div v-if="showSubmittedInputs" class="flex justify-center items-center my-6">
-    <div class="flex flex-col w-[10vw] h-[10vh]">
-      <h5 class="text-[17px] font-bold w-[10vw] mb-4">FIRMA</h5>
-      {{ firma }}
-    </div>
-    <div class="flex flex-col w-[10vw] h-[10vh]">
-      <h5 class="text-[17px] font-bold w-[10vw] mb-4">PRODUKT</h5>
-      {{ produktName }}
-    </div>
-    <div class="flex flex-col w-[10vw] h-[10vh]">
-      <h5 class="text-[17px] font-bold w-[10vw] mb-4">GEWICHT</h5>
-      {{ gewicht }}
-    </div>
-    <div class="flex flex-col w-[10vw] h-[10vh]">
-      <h5 class="text-[17px] font-bold w-[10vw] mb-4">BILD</h5>
-      <img
-        v-if="selectedImage"
-        :src="selectedImage"
-        alt="Image of the product"
-        style="max-width: 50px; max-height: 55px"
-      />
-    </div>
-    <div class="flex flex-col w-[10vw] h-[10vh]">
-      <h5 class="text-[17px] font-bold w-[10vw] mb-4">HALAL</h5>
-      <span
-        :class="{
-          'text-green-500': halal === '1',
-          'text-red-500': halal === '2',
-        }"
-        >{{ halal === '1' ? 'Ja' : 'Nein' }}</span
-      >
-    </div>
-    <div class="flex flex-col w-[10vw] h-[10vh]">
-      <h5 class="text-[17px] font-bold w-[10vw] mb-4">VEGAN</h5>
-      <span
-        :class="{
-          'text-green-500': vegan === '1',
-          'text-red-500': vegan === '2',
-        }"
-      >
-        {{ vegan === '1' ? 'Ja' : 'Nein' }}</span
-      >
-    </div>
-    <div class="flex flex-col w-[10vw] h-[10vh]">
-      <h5 class="text-[17px] font-bold w-[10vw] mb-4">VEGETARIAN</h5>
-      <span
-        :class="{
-          'text-green-500': vegetarian === '1',
-          'text-red-500': vegetarian === '2',
-        }"
-        >{{ vegetarian === '1' ? 'Ja' : 'Nein' }}</span
-      >
-    </div>
-    <div class="flex flex-col w-[10vw] h-[10vh]">
-      <h5 class="text-[17px] font-bold w-[10vw] mb-4">ALKOHOL</h5>
-      <span
-        :class="{
-          'text-red-500': alkohol === '1',
-          'text-green-500': alkohol === '2',
-        }"
-        >{{ alkohol === '1' ? 'Ja' : 'Nein' }}</span
-      >
-    </div>
-    <div class="flex flex-col w-[10vw] h-[10vh]">
-      <h5 class="text-[17px] font-bold w-[10vw] mb-4">ALLERGIEN</h5>
-      <span
-        :class="{
-          'text-red-500': allergien === '1',
-          'text-green-500': allergien === '2',
-        }"
-        >{{ allergien === '1' ? 'Ja' : 'Nein' }}</span
-      >
-    </div>
-  </div>
+  <v-table
+    density="compact"
+    v-if="showSubmittedInputs"
+    class="w-[95vw] mx-auto"
+  >
+    <thead>
+      <tr class="bg-slate-100">
+        <th class="text-[15px] font-bold w-[10vw]">FIRMA</th>
+        <th class="text-[15px] font-bold w-[10vw]">PRODUKT</th>
+        <th class="text-[15px] font-bold w-[10vw]">GEWICHT (kg)</th>
+        <th class="text-[15px] font-bold w-[10vw]">BILD</th>
+        <th class="text-[15px] font-bold w-[10vw]">HALAL</th>
+        <th class="text-[15px] font-bold w-[10vw]">VEGAN</th>
+        <th class="text-[15px] font-bold w-[10vw]">VEGETARIAN</th>
+        <th class="text-[15px] font-bold w-[10vw]">ALKOHOL</th>
+        <th class="text-[15px] font-bold w-[10vw]">ALLERGIEN</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="text-[15px] w-[20vw]">{{ firma }}</td>
+        <td class="text-[15px] w-[20vw]">{{ produktName }}</td>
+        <td class="text-[15px] w-[20vw]">{{ gewicht }}</td>
+        <td class="text-[15px] w-[20vw]">
+          <img
+            v-if="selectedImage"
+            :src="selectedImage"
+            alt="Image of the product"
+            style="max-width: 50px; max-height: 55px"
+          />
+        </td>
+        <td class="text-[15px] w-[20vw]">
+          <span
+            :class="{
+              'text-green-500': halal === '1',
+              'text-red-500': halal === '2',
+            }"
+            >{{ halal === '1' ? 'Ja' : 'Nein' }}</span
+          >
+        </td>
+        <td class="text-[15px] w-[20vw]">
+          <span
+            :class="{
+              'text-green-500': vegan === '1',
+              'text-red-500': vegan === '2',
+            }"
+            >{{ vegan === '1' ? 'Ja' : 'Nein' }}</span
+          >
+        </td>
+        <td class="text-[15px] w-[20vw]">
+          <span
+            :class="{
+              'text-green-500': vegetarian === '1',
+              'text-red-500': vegetarian === '2',
+            }"
+            >{{ vegetarian === '1' ? 'Ja' : 'Nein' }}</span
+          >
+        </td>
+        <td class="text-[15px] w-[20vw]">
+          <span
+            :class="{
+              'text-red-500': alkohol === '1',
+              'text-green-500': alkohol === '2',
+            }"
+            >{{ alkohol === '1' ? 'Ja' : 'Nein' }}</span
+          >
+        </td>
+        <td class="text-[15px] w-[20vw]">
+          <span
+            :class="{
+              'text-red-500': allergien === '1',
+              'text-green-500': allergien === '2',
+            }"
+            >{{ allergien === '1' ? 'Ja' : 'Nein' }}</span
+          >
+        </td>
+      </tr>
+    </tbody>
+  </v-table>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 import * as Yup from 'yup';
+import { VTable } from 'vuetify/components';
 
 const firma = ref('');
 const produktName = ref('');
@@ -270,6 +277,16 @@ const previewImage = (event) => {
   } else {
     selectedImage.value = '';
   }
+};
+
+const formatGewicht = () => {
+  let formatValue = parseFloat(gewicht.value.replace(',', '.')).toLocaleString(
+    'de-DE'
+  );
+  if (formatValue === 'NaN') {
+    formatValue = '';
+  }
+  gewicht.value = formatValue;
 };
 
 const changeBackgroundColor = (event, option) => {

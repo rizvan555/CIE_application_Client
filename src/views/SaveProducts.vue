@@ -6,38 +6,49 @@
   <div class="flex flex-col items-center my-2">
     <div class="flex gap-48">
       <div class="flex flex-col gap-3">
-        <fieldset class="form-group flex items-center gap-2">
+        <div class="form-group flex items-center gap-2">
           <h3 class="w-[10vw] font-bold text-[20px]">Firma:</h3>
           <input
             required
-            v-model="firma"
+            v-model="company"
             class="form-control form-control-lg w-[30vw] text-[17px]"
             type="text"
-            aria-label="firma"
-            name="firma"
+            aria-label="company"
+            name="company"
           />
-        </fieldset>
-        <div class="flex items-center gap-2">
-          <h3 class="w-[10vw] font-bold text-[20px]">Produktname:</h3>
+        </div>
+        <div class="form-group flex items-center gap-2">
+          <h3 class="w-[10vw] font-bold text-[20px]">Marke:</h3>
           <input
             required
-            v-model="produktName"
+            v-model="brand"
             class="form-control form-control-lg w-[30vw] text-[17px]"
             type="text"
-            aria-label="produktName"
-            name="produktName"
+            aria-label="brand"
+            name="brand"
+          />
+        </div>
+        <div class="flex items-center gap-2">
+          <h3 class="w-[10vw] font-bold text-[20px]">Model:</h3>
+          <input
+            required
+            v-model="model"
+            class="form-control form-control-lg w-[30vw] text-[17px]"
+            type="text"
+            aria-label="model"
+            name="model"
           />
         </div>
         <div class="flex items-center gap-2">
           <h3 class="w-[10vw] font-bold text-[20px]">Gewicht (kg):</h3>
           <input
             required
-            v-model="gewicht"
+            v-model="weight"
             class="form-control form-control-lg w-[30vw] text-[17px]"
             type="text"
-            aria-label="gewicht"
-            name="gewicht"
-            @input="formatGewicht"
+            aria-label="weight"
+            name="weight"
+            @input="formatWeight"
           />
         </div>
         <div class="flex items-center gap-2">
@@ -98,8 +109,8 @@
           <select
             class="form-select w-[6vw]"
             @change="changeBackgroundColor($event, '2')"
-            v-model="alkohol"
-            name="alkohol"
+            v-model="alcohol"
+            name="alcohol"
             required
           >
             <option value="1">Ja</option>
@@ -112,8 +123,8 @@
           <select
             class="form-select w-[6vw]"
             @change="changeBackgroundColor($event, '2')"
-            v-model="allergien"
-            name="allergien"
+            v-model="allergic"
+            name="allergic"
             required
           >
             <option value="1">Ja</option>
@@ -126,7 +137,7 @@
     <button
       class="btn btn-primary mt-14 mb-20 w-[30vw] active:scale-95 transition-all"
       type="submit"
-      @click="showInputs"
+      @click="handleSubmit"
     >
       Enter
     </button>
@@ -140,7 +151,8 @@
     <thead>
       <tr class="bg-slate-100">
         <th class="text-[15px] font-bold w-[10vw]">FIRMA</th>
-        <th class="text-[15px] font-bold w-[10vw]">PRODUKT</th>
+        <th class="text-[15px] font-bold w-[10vw]">MARKE</th>
+        <th class="text-[15px] font-bold w-[10vw]">MODEL</th>
         <th class="text-[15px] font-bold w-[10vw]">GEWICHT (kg)</th>
         <th class="text-[15px] font-bold w-[10vw]">BILD</th>
         <th class="text-[15px] font-bold w-[10vw]">HALAL</th>
@@ -152,9 +164,10 @@
     </thead>
     <tbody>
       <tr>
-        <td class="text-[15px] w-[20vw]">{{ firma }}</td>
-        <td class="text-[15px] w-[20vw]">{{ produktName }}</td>
-        <td class="text-[15px] w-[20vw]">{{ gewicht }}</td>
+        <td class="text-[15px] w-[20vw]">{{ company }}</td>
+        <td class="text-[15px] w-[20vw]">{{ brand }}</td>
+        <td class="text-[15px] w-[20vw]">{{ model }}</td>
+        <td class="text-[15px] w-[20vw]">{{ weight }}</td>
         <td class="text-[15px] w-[20vw]">
           <img
             v-if="selectedImage"
@@ -193,19 +206,19 @@
         <td class="text-[15px] w-[20vw]">
           <span
             :class="{
-              'text-red-500': alkohol === '1',
-              'text-green-500': alkohol === '2',
+              'text-red-500': alcohol === '1',
+              'text-green-500': alcohol === '2',
             }"
-            >{{ alkohol === '1' ? 'Ja' : 'Nein' }}</span
+            >{{ alcohol === '1' ? 'Ja' : 'Nein' }}</span
           >
         </td>
         <td class="text-[15px] w-[20vw]">
           <span
             :class="{
-              'text-red-500': allergien === '1',
-              'text-green-500': allergien === '2',
+              'text-red-500': allergic === '1',
+              'text-green-500': allergic === '2',
             }"
-            >{{ allergien === '1' ? 'Ja' : 'Nein' }}</span
+            >{{ allergic === '1' ? 'Ja' : 'Nein' }}</span
           >
         </td>
       </tr>
@@ -217,54 +230,21 @@
 import { ref } from 'vue';
 import * as Yup from 'yup';
 import { VTable } from 'vuetify/components';
+import axios from 'axios';
 
-const firma = ref('');
-const produktName = ref('');
-const gewicht = ref('');
+const company = ref('');
+const brand = ref('');
+const model = ref('');
+const weight = ref('');
+const image = ref('');
 const halal = ref('');
 const vegan = ref('');
 const vegetarian = ref('');
-const alkohol = ref('');
-const allergien = ref('');
-const selectedImage = ref('');
+const alcohol = ref('');
+const allergic = ref('');
+const products = ref<Products[]>([]);
 
 const showSubmittedInputs = ref(false);
-const showInputs = () => {
-  schema
-    .validate({
-      firma: firma.value,
-      produktName: produktName.value,
-      gewicht: gewicht.value,
-      halal: halal.value,
-      vegan: vegan.value,
-      vegetarian: vegetarian.value,
-      alkohol: alkohol.value,
-      allergien: allergien.value,
-    })
-    .then(() => {
-      showSubmittedInputs.value = true;
-    })
-    .catch((error) => {
-      console.error(error.message);
-    });
-};
-
-const schema = Yup.object().shape({
-  firma: Yup.string()
-    .min(2, 'Firmenname muss mindestens 2 Zeichen sein')
-    .required('Firmenname wird benötigt'),
-  produktName: Yup.string()
-    .min(1, 'Produktname muss mindestens 1 Zeichen sein')
-    .required('Produktname wird benötigt'),
-  gewicht: Yup.string()
-    .min(1, 'Gewicht muss mindestens 1 Zeichen sein')
-    .required('Gewicht wird benötigt'),
-  halal: Yup.string().required('Bitte wählen Sie eine Option aus'),
-  vegan: Yup.string().required('Bitte wählen Sie eine Option aus'),
-  vegetarian: Yup.string().required('Bitte wählen Sie eine Option aus'),
-  alkohol: Yup.string().required('Bitte wählen Sie eine Option aus'),
-  allergien: Yup.string().required('Bitte wählen Sie eine Option aus'),
-});
 
 const previewImage = (event) => {
   const fileList = event.target.files;
@@ -272,21 +252,21 @@ const previewImage = (event) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileList[0]);
     reader.onload = () => {
-      selectedImage.value = reader.result;
+      image.value = reader.result;
     };
   } else {
-    selectedImage.value = '';
+    image.value = '';
   }
 };
 
-const formatGewicht = () => {
-  let formatValue = parseFloat(gewicht.value.replace(',', '.')).toLocaleString(
+const formatWeight = () => {
+  let formatValue = parseFloat(weight.value.replace(',', '.')).toLocaleString(
     'de-DE'
   );
   if (formatValue === 'NaN') {
     formatValue = '';
   }
-  gewicht.value = formatValue;
+  weight.value = formatValue;
 };
 
 const changeBackgroundColor = (event, option) => {
@@ -297,6 +277,76 @@ const changeBackgroundColor = (event, option) => {
   } else {
     event.target.classList.add('bg-red-500');
     event.target.classList.remove('bg-green-500');
+  }
+};
+
+const handleSubmit = async (e: any) => {
+  e.preventDefault();
+  try {
+    // Doğrulama şeması
+    const schema = Yup.object().shape({
+      company: Yup.string()
+        .min(2, 'Der Firmenname muss mindestens 2 Zeichen lang sein')
+        .required('Firmenname ist erforderlich'),
+      brand: Yup.string()
+        .min(2, 'Der Marke muss mindestens 2 Zeichen lang sein')
+        .required('Marke ist erforderlich'),
+      model: Yup.string()
+        .min(1, 'Der Model muss mindestens 1 Zeichen lang sein')
+        .required('Model ist erforderlich'),
+      weight: Yup.number()
+        .min(1, 'Der Gewicht muss mindestens 1 Zeichen lang sein')
+        .required('Gewicht ist erforderlich'),
+      halal: Yup.string().required('Bitte wähle eine Option'),
+      vegan: Yup.string().required('Bitte wähle eine Option'),
+      vegetarian: Yup.string().required('Bitte wähle eine Option'),
+      alcohol: Yup.string().required('Bitte wähle eine Option'),
+      allergic: Yup.string().required('Bitte wähle eine Option'),
+    });
+
+    await schema.validate({
+      company: company.value,
+      brand: brand.value,
+      model: model.value,
+      weight: Number(weight.value),
+      image: image.value,
+      halal: halal.value,
+      vegan: vegan.value,
+      vegetarian: vegetarian.value,
+      alcohol: alcohol.value,
+      allergic: allergic.value,
+    });
+
+    // Sunucuya gönder
+    const response = await axios.post('/api/api/products/addProducts', {
+      id: products.value.length + 1,
+      company: company.value,
+      brand: brand.value,
+      model: model.value,
+      weight: Number(weight.value),
+      image: image.value,
+      halal: halal.value,
+      vegan: vegan.value,
+      vegetarian: vegetarian.value,
+      alcohol: alcohol.value,
+      allergic: allergic.value,
+    });
+
+    products.value.push(response.data);
+
+    showSubmittedInputs.value = true;
+    company.value = '';
+    brand.value = '';
+    model.value = '';
+    weight.value = '';
+    image.value = '';
+    halal.value = '';
+    vegan.value = '';
+    vegetarian.value = '';
+    alcohol.value = '';
+    allergic.value = '';
+  } catch (error) {
+    console.error('Gönderim Hatası:', error.message);
   }
 };
 </script>

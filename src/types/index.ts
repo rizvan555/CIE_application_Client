@@ -69,3 +69,17 @@ export type UpdatedInfo = {
   phone: boolean;
   email: boolean;
 };
+
+export type Products = {
+  id: number;
+  company: string;
+  brand: string;
+  model: string;
+  weight: number;
+  image: string;
+  halal: string;
+  vegan: string;
+  vegetarian: string;
+  alcohol: string;
+  allergic: string;
+};

@@ -68,7 +68,7 @@
           <h4 class="w-[8vw] font-bold text-[18px]">Halal:</h4>
           <select
             class="form-select w-[6vw]"
-            @change="changeBackgroundColor($event, '1')"
+            @change="changeBackgroundColor($event, '1'), checkOptions()"
             v-model="halal"
             name="halal"
             required
@@ -108,7 +108,7 @@
           <h4 class="w-[8vw] font-bold text-[18px]">Alkohol:</h4>
           <select
             class="form-select w-[6vw]"
-            @change="changeBackgroundColor($event, '2')"
+            @change="changeBackgroundColor($event, '2'), checkOptions()"
             v-model="alcohol"
             name="alcohol"
             required
@@ -245,6 +245,18 @@ const allergic = ref('');
 const products = ref<Products[]>([]);
 
 const showSubmittedInputs = ref(false);
+const checkOptions = () => {
+  if (halal.value === '1') {
+    alcohol.value = '2';
+    alcoholDisabled = true;
+  } else if (alcohol.value === '1') {
+    halal.value = '2';
+    halalDisabled = true;
+  } else {
+    alcoholDisabled = false;
+    halalDisabled = false;
+  }
+};
 
 const previewImage = (event) => {
   const fileList = event.target.files;
@@ -283,7 +295,6 @@ const changeBackgroundColor = (event, option) => {
 const handleSubmit = async (e: any) => {
   e.preventDefault();
   try {
-    // Doğrulama şeması
     const schema = Yup.object().shape({
       company: Yup.string()
         .min(2, 'Der Firmenname muss mindestens 2 Zeichen lang sein')
@@ -317,19 +328,22 @@ const handleSubmit = async (e: any) => {
       allergic: allergic.value,
     });
 
-    // Sunucuya gönder
+    const lastUsedIdResponse = await axios.get('/api/api/products/lastUsedId');
+    const lastUsedId = lastUsedIdResponse.data;
+    const newId = lastUsedId + 1;
+
     const response = await axios.post('/api/api/products/addProducts', {
-      id: products.value.length + 1,
+      id: newId,
       company: company.value,
       brand: brand.value,
       model: model.value,
       weight: Number(weight.value),
       image: image.value,
-      halal: halal.value,
-      vegan: vegan.value,
-      vegetarian: vegetarian.value,
-      alcohol: alcohol.value,
-      allergic: allergic.value,
+      halal: halal.value === '1' ? 'ja' : 'nein',
+      vegan: vegan.value === '1' ? 'ja' : 'nein',
+      vegetarian: vegetarian.value === '1' ? 'ja' : 'nein',
+      alcohol: alcohol.value === '1' ? 'ja' : 'nein',
+      allergic: allergic.value === '1' ? 'ja' : 'nein',
     });
 
     products.value.push(response.data);
@@ -346,7 +360,7 @@ const handleSubmit = async (e: any) => {
     alcohol.value = '';
     allergic.value = '';
   } catch (error) {
-    console.error('Gönderim Hatası:', error.message);
+    console.error('Submission Error:', error.message);
   }
 };
 </script>

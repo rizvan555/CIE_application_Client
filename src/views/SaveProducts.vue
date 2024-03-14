@@ -40,7 +40,7 @@
           />
         </div>
         <div class="flex items-center gap-2">
-          <h3 class="w-[10vw] font-bold text-[20px]">Gewicht (kg):</h3>
+          <h3 class="w-[10vw] font-bold text-[20px]">Gewicht (kg/l):</h3>
           <input
             required
             v-model="weight"
@@ -59,6 +59,7 @@
             id="formFileMultiple"
             multiple
             @change="previewImage($event)"
+            name="image"
           />
         </div>
       </div>

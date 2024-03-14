@@ -292,6 +292,13 @@ const changeBackgroundColor = (event, option) => {
   }
 };
 
+const resetBackgroundColor = () => {
+  const selectElements = document.querySelectorAll('.form-select');
+  selectElements.forEach((element) => {
+    element.classList.remove('bg-green-500', 'bg-red-500');
+  });
+};
+
 const handleSubmit = async (e: any) => {
   e.preventDefault();
   try {
@@ -359,6 +366,8 @@ const handleSubmit = async (e: any) => {
     vegetarian.value = '';
     alcohol.value = '';
     allergic.value = '';
+
+    resetBackgroundColor();
   } catch (error) {
     console.error('Submission Error:', error.message);
   }

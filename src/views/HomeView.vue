@@ -52,7 +52,7 @@
             <img
               :src="product.image"
               alt="Product image"
-              class="h-[12vw] w-[17vw]"
+              class="h-[13vw] w-[17vw]"
             />
           </div>
         </div>
@@ -125,10 +125,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
 const search = ref('');
 const searchData = ref([]);
 const selectedProduct = ref({});
+const router = useRouter();
 
 const handleSubmit = async () => {
   try {
@@ -155,7 +157,8 @@ const selectResultProduct = async (productId: number) => {
     const response = await axios.get(
       `/api/api/products/getAllProducts/${productId}`
     );
-
+    selectedProduct.value = response.data;
+    router.push({ name: 'SelectedProduct', params: { id: productId } });
     console.log('Selected product:', response.data);
   } catch (error) {
     console.error('error', error);

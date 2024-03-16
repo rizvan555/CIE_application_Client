@@ -7,3 +7,14 @@
 .red-icon {
   color: red;
 }
+.hover-info-content {
+  position: absolute;
+  background-color: white;
+  display: none;
+  z-index: 1;
+  width: 30vw;
+}
+
+.hover-info:hover .hover-info-content {
+  display: block;
+}

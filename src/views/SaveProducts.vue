@@ -7,7 +7,7 @@
     <div class="flex gap-48">
       <div class="flex flex-col gap-3">
         <div class="form-group flex items-center gap-2">
-          <h3 class="w-[10vw] font-bold text-[20px]">Firma:</h3>
+          <h3 class="w-[10vw] font-semibold text-[20px]">Firma:</h3>
           <input
             required
             v-model="company"
@@ -18,7 +18,7 @@
           />
         </div>
         <div class="form-group flex items-center gap-2">
-          <h3 class="w-[10vw] font-bold text-[20px]">Marke:</h3>
+          <h3 class="w-[10vw] font-semibold text-[20px]">Marke:</h3>
           <input
             required
             v-model="brand"
@@ -29,7 +29,7 @@
           />
         </div>
         <div class="flex items-center gap-2">
-          <h3 class="w-[10vw] font-bold text-[20px]">Model:</h3>
+          <h3 class="w-[10vw] font-semibold text-[20px]">Model:</h3>
           <input
             required
             v-model="model"
@@ -40,7 +40,7 @@
           />
         </div>
         <div class="flex items-center gap-2">
-          <h3 class="w-[10vw] font-bold text-[20px]">Gewicht (kg/l):</h3>
+          <h3 class="w-[10vw] font-semibold text-[20px]">Gewicht (g):</h3>
           <input
             required
             v-model="weight"
@@ -51,8 +51,54 @@
             @input="formatWeight"
           />
         </div>
+
         <div class="flex items-center gap-2">
-          <h3 class="w-[10vw] font-bold text-xl">Produkt Bild:</h3>
+          <h3 class="w-[10vw] font-semibold text-[20px]">Eiweiß(g):</h3>
+          <input
+            required
+            v-model="protein"
+            class="form-control form-control-lg w-[30vw] text-[17px]"
+            type="text"
+            aria-label="protein"
+            name="protein"
+          />
+        </div>
+        <div class="flex items-center gap-2">
+          <h3 class="w-[10vw] font-semibold text-[20px]">Kalorien(kcal):</h3>
+          <input
+            required
+            v-model="calories"
+            class="form-control form-control-lg w-[30vw] text-[17px]"
+            type="text"
+            aria-label="calories"
+            name="calories"
+          />
+        </div>
+        <div class="flex items-center gap-2">
+          <h3 class="w-[10vw] font-semibold text-[20px]">Zucker(g):</h3>
+          <input
+            required
+            v-model="sugar"
+            class="form-control form-control-lg w-[30vw] text-[17px]"
+            type="text"
+            aria-label="sugar"
+            name="sugar"
+          />
+        </div>
+        <div class="flex items-center gap-2">
+          <h3 class="w-[10vw] font-semibold text-[20px]">Salz(g):</h3>
+          <input
+            required
+            v-model="salt"
+            class="form-control form-control-lg w-[30vw] text-[17px]"
+            type="text"
+            aria-label="salt"
+            name="salt"
+          />
+        </div>
+
+        <div class="flex items-center gap-2">
+          <h3 class="w-[10vw] font-semibold text-xl">Produkt Bild:</h3>
           <input
             class="form-control w-[30vw] text-[15px]"
             type="file"
@@ -66,7 +112,7 @@
 
       <div class="flex flex-col gap-2">
         <div class="flex gap-2 items-center">
-          <h4 class="w-[8vw] font-bold text-[18px]">Halal:</h4>
+          <h4 class="w-[8vw] font-semibold text-[18px]">Halal:</h4>
           <select
             class="form-select w-[6vw]"
             @change="changeBackgroundColor($event, '1'), checkOptions()"
@@ -79,7 +125,7 @@
           </select>
         </div>
         <div class="flex gap-2 items-center">
-          <h4 class="w-[8vw] font-bold text-[18px]">Vegan:</h4>
+          <h4 class="w-[8vw] font-semibold text-[18px]">Vegan:</h4>
           <select
             class="form-select w-[6vw]"
             @change="changeBackgroundColor($event, '1')"
@@ -92,7 +138,7 @@
           </select>
         </div>
         <div class="flex gap-2 items-center">
-          <h4 class="w-[8vw] font-bold text-[18px]">Vegetarian:</h4>
+          <h4 class="w-[8vw] font-semibold text-[18px]">Vegetarian:</h4>
           <select
             class="form-select w-[6vw]"
             @change="changeBackgroundColor($event, '1')"
@@ -104,9 +150,8 @@
             <option value="2">Nein</option>
           </select>
         </div>
-
         <div class="flex gap-2 items-center">
-          <h4 class="w-[8vw] font-bold text-[18px]">Alkohol:</h4>
+          <h4 class="w-[8vw] font-semibold text-[18px]">Alkohol:</h4>
           <select
             class="form-select w-[6vw]"
             @change="changeBackgroundColor($event, '2'), checkOptions()"
@@ -118,14 +163,104 @@
             <option value="2">Nein</option>
           </select>
         </div>
-
         <div class="flex gap-2 items-center">
-          <h4 class="w-[8vw] font-bold text-[18px]">Allergien:</h4>
+          <h4 class="w-[8vw] font-semibold text-[18px]">Allergien:</h4>
           <select
             class="form-select w-[6vw]"
             @change="changeBackgroundColor($event, '2')"
             v-model="allergic"
             name="allergic"
+            required
+          >
+            <option value="1">Ja</option>
+            <option value="2">Nein</option>
+          </select>
+        </div>
+        <div class="flex gap-2 items-center">
+          <h4 class="w-[8vw] font-semibold text-[18px]">Erdnuss:</h4>
+          <select
+            class="form-select w-[6vw]"
+            @change="changeBackgroundColor($event, '2')"
+            v-model="peanut"
+            name="peanut"
+            required
+          >
+            <option value="1">Ja</option>
+            <option value="2">Nein</option>
+          </select>
+        </div>
+        <div class="flex gap-2 items-center">
+          <h4 class="w-[8vw] font-semibold text-[18px]">Gluten:</h4>
+          <select
+            class="form-select w-[6vw]"
+            @change="changeBackgroundColor($event, '2')"
+            v-model="gluten"
+            name="gluten"
+            required
+          >
+            <option value="1">Ja</option>
+            <option value="2">Nein</option>
+          </select>
+        </div>
+        <div class="flex gap-2 items-center">
+          <h4 class="w-[8vw] font-semibold text-[18px]">Fisch:</h4>
+          <select
+            class="form-select w-[6vw]"
+            @change="changeBackgroundColor($event, '2')"
+            v-model="fish"
+            name="fish"
+            required
+          >
+            <option value="1">Ja</option>
+            <option value="2">Nein</option>
+          </select>
+        </div>
+        <div class="flex gap-2 items-center">
+          <h4 class="w-[8vw] font-semibold text-[18px]">Krebstiere:</h4>
+          <select
+            class="form-select w-[6vw]"
+            @change="changeBackgroundColor($event, '2')"
+            v-model="crustaceans"
+            name="crustaceans"
+            required
+          >
+            <option value="1">Ja</option>
+            <option value="2">Nein</option>
+          </select>
+        </div>
+        <div class="flex gap-2 items-center">
+          <h4 class="w-[8vw] font-semibold text-[18px]">Lupinen:</h4>
+          <select
+            class="form-select w-[6vw]"
+            @change="changeBackgroundColor($event, '2')"
+            v-model="lupins"
+            name="lupins"
+            required
+          >
+            <option value="1">Ja</option>
+            <option value="2">Nein</option>
+          </select>
+        </div>
+        <div class="flex gap-2 items-center">
+          <h4 class="w-[8vw] font-semibold text-[18px]">Kuhmilch:</h4>
+          <select
+            class="form-select w-[6vw]"
+            @change="changeBackgroundColor($event, '2')"
+            v-model="cowsmilk"
+            name="cowsmilk"
+            required
+          >
+            <option value="1">Ja</option>
+            <option value="2">Nein</option>
+          </select>
+        </div>
+        <div class="flex gap-2 items-center">
+          <h4 class="w-[8vw] font-semibold text-[18px]">Nüsse:</h4>
+          <select
+            class="form-select w-[6vw]"
+            @change="changeBackgroundColor($event, '2')"
+            v-model="nuts"
+            name="nuts"
             required
           >
             <option value="1">Ja</option>
@@ -243,6 +378,18 @@ const vegan = ref('');
 const vegetarian = ref('');
 const alcohol = ref('');
 const allergic = ref('');
+const peanut = ref('');
+const gluten = ref('');
+const fish = ref('');
+const crustaceans = ref('');
+const lupins = ref('');
+const cowsmilk = ref('');
+const nuts = ref('');
+const protein = ref('');
+const calories = ref('');
+const sugar = ref('');
+const salt = ref('');
+
 const products = ref<Products[]>([]);
 
 const showSubmittedInputs = ref(false);
@@ -334,6 +481,17 @@ const handleSubmit = async (e: any) => {
       vegetarian: vegetarian.value,
       alcohol: alcohol.value,
       allergic: allergic.value,
+      protein: protein.value,
+      calories: calories.value,
+      sugar: sugar.value,
+      salt: salt.value,
+      peanut: peanut.value,
+      gluten: gluten.value,
+      fish: fish.value,
+      crustaceans: crustaceans.value,
+      lupins: lupins.value,
+      cowsmilk: cowsmilk.value,
+      nuts: nuts.value,
     });
 
     const lastUsedIdResponse = await axios.get('/api/api/products/lastUsedId');
@@ -347,11 +505,22 @@ const handleSubmit = async (e: any) => {
       model: model.value,
       weight: Number(weight.value),
       image: image.value,
+      protein: protein.value,
+      calories: calories.value,
+      sugar: sugar.value,
+      salt: salt.value,
       halal: halal.value === '1' ? 'ja' : 'nein',
       vegan: vegan.value === '1' ? 'ja' : 'nein',
       vegetarian: vegetarian.value === '1' ? 'ja' : 'nein',
       alcohol: alcohol.value === '1' ? 'ja' : 'nein',
       allergic: allergic.value === '1' ? 'ja' : 'nein',
+      peanut: peanut.value === '1' ? 'ja' : 'nein',
+      gluten: gluten.value === '1' ? 'ja' : 'nein',
+      fish: fish.value === '1' ? 'ja' : 'nein',
+      crustaceans: crustaceans.value === '1' ? 'ja' : 'nein',
+      lupins: lupins.value === '1' ? 'ja' : 'nein',
+      cowsmilk: cowsmilk.value === '1' ? 'ja' : 'nein',
+      nuts: nuts.value === '1' ? 'ja' : 'nein',
     });
 
     products.value.push(response.data);
@@ -367,6 +536,17 @@ const handleSubmit = async (e: any) => {
     vegetarian.value = '';
     alcohol.value = '';
     allergic.value = '';
+    peanut.value = '';
+    gluten.value = '';
+    fish.value = '';
+    crustaceans.value = '';
+    lupins.value = '';
+    cowsmilk.value = '';
+    nuts.value = '';
+    protein.value = '';
+    calories.value = '';
+    sugar.value = '';
+    salt.value = '';
 
     resetBackgroundColor();
   } catch (error) {

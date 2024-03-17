@@ -82,4 +82,15 @@ export type Products = {
   vegetarian: string;
   alcohol: string;
   allergic: string;
+  peanut: string;
+  gluten: string;
+  fish: string;
+  crustaceans: string;
+  lupins: string;
+  cowsmilk: string;
+  nuts: string;
+  protein: string;
+  calories: string;
+  sugar: string;
+  salt: string;
 };

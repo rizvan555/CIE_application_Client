@@ -45,7 +45,7 @@
             </div>
             <div class="flex items-center gap-4">
               <p class="w-20"><b>Weight:</b></p>
-              <p class="w-40">{{ product.weight }} (kg/l)</p>
+              <p class="w-40">{{ product.weight }} (g)</p>
             </div>
           </div>
           <div class="border">

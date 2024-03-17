@@ -2,17 +2,19 @@
   <div class="mt-[12vw]">
     <a href="/home" class="border px-3 py-1 ml-[3vw]"> <-</a>
     <div class="flex items-center justify-center gap-4 w-[60vw] mx-auto">
-      <div class="flex items-center justify-center mx-auto">
+      <div class="flex items-center justify-center mx-auto gap-4">
         <div class="flex flex-col gap-2">
-          <h2 class="flex gap-3 text-3xl mb-10">
+          <h2 class="flex flex-col gap-3 text-4xl mb-10 justify-center">
             <b>
               {{ selectedProduct.brand }}
             </b>
-            <p>{{ selectedProduct.model }}</p>
-            <p>- {{ selectedProduct.weight }} (kg)</p>
+            <div class="flex text-[15px] leading-3 italic">
+              <p>{{ selectedProduct.model }}</p>
+              <p>- {{ selectedProduct.weight }}(g/ml)</p>
+            </div>
           </h2>
 
-          <div class="flex flex-col gap-2 my-2">
+          <div class="flex flex-col gap-2 my-2 w-[22vw]">
             <div class="flex items-center gap-4 hover-info" data-aos="fade-in">
               <p class="w-[18vw] text-gray-500 animation-result">
                 <b>Halal:</b>
@@ -104,7 +106,7 @@
                   class="grid grid-cols-1 border rounded px-2 py-2 w-[25vw] h-[25vw] bg-white"
                 >
                   <div class="flex items-center justify-center gap-8">
-                    <p class="font-semibold w-[15vw]">Gluten:</p>
+                    <p class="font-semibold w-[15vw] text-gray-500">Gluten:</p>
                     <p
                       class="text-[13px]"
                       :class="
@@ -117,7 +119,7 @@
                     </p>
                   </div>
                   <div class="flex items-center justify-center gap-8">
-                    <p class="font-semibold w-[15vw]">Fish:</p>
+                    <p class="font-semibold w-[15vw] text-gray-500">Fish:</p>
                     <p
                       class="text-[13px]"
                       :class="
@@ -130,7 +132,7 @@
                     </p>
                   </div>
                   <div class="flex items-center justify-center gap-8">
-                    <p class="font-semibold w-[15vw]">Erdnuss:</p>
+                    <p class="font-semibold w-[15vw] text-gray-500">Erdnuss:</p>
                     <p
                       class="text-[13px]"
                       :class="
@@ -143,7 +145,9 @@
                     </p>
                   </div>
                   <div class="flex items-center justify-center gap-8">
-                    <p class="font-semibold w-[15vw]">Krebstiere:</p>
+                    <p class="font-semibold w-[15vw] text-gray-500">
+                      Krebstiere:
+                    </p>
                     <p
                       class="text-[13px]"
                       :class="
@@ -156,7 +160,7 @@
                     </p>
                   </div>
                   <div class="flex items-center justify-center gap-8">
-                    <p class="font-semibold w-[15vw]">Lupinen:</p>
+                    <p class="font-semibold w-[15vw] text-gray-500">Lupinen:</p>
                     <p
                       class="text-[13px]"
                       :class="
@@ -169,7 +173,9 @@
                     </p>
                   </div>
                   <div class="flex items-center justify-center gap-8">
-                    <p class="font-semibold w-[15vw]">Kuhmilch:</p>
+                    <p class="font-semibold w-[15vw] text-gray-500">
+                      Kuhmilch:
+                    </p>
                     <p
                       class="text-[13px]"
                       :class="
@@ -182,7 +188,7 @@
                     </p>
                   </div>
                   <div class="flex items-center justify-center gap-8">
-                    <p class="font-semibold w-[15vw]">Nuss:</p>
+                    <p class="font-semibold w-[15vw] text-gray-500">Nuss:</p>
                     <p
                       class="text-[13px]"
                       :class="
@@ -203,7 +209,7 @@
           <img
             :src="selectedProduct.image"
             alt="Product image"
-            class="h-[20vw] w-[25vw]"
+            class="h-[25vw] w-[25vw]"
           />
         </div>
       </div>

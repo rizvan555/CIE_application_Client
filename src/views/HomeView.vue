@@ -28,9 +28,9 @@
       :key="product.id"
       @click="() => selectResultProduct(product.id)"
     >
-      <div class="flex flex-col items-center gap-1 border rounded px-3 py-2">
+      <div class="flex flex-col items-center gap-1 border rounded px-3 py-0">
         <div class="flex border-b-2 py-2">
-          <div class="flex flex-col gap-2 px-3 py-2">
+          <div class="flex flex-col gap-2 px-3 py-2 text-start">
             <div class="flex items-center gap-4">
               <p class="w-20"><b>Company:</b></p>
               <p class="w-40">{{ product.company }}</p>
@@ -48,7 +48,7 @@
               <p class="w-40">{{ product.weight }} (g)</p>
             </div>
           </div>
-          <div class="border">
+          <div class="border-l ml-5">
             <img
               :src="product.image"
               alt="Product image"
@@ -61,7 +61,7 @@
           <div
             class="flex flex-col justify-center items-center gap-1 border-r-2 pr-5"
           >
-            <p><b>Halal</b></p>
+            <p class="text-gray-600"><b>Halal</b></p>
             <p
               :class="
                 product.halal === 'ja' ? 'text-green-500' : 'text-red-500'
@@ -73,7 +73,7 @@
           <div
             class="flex flex-col justify-center items-center gap-1 border-r-2 pr-5"
           >
-            <p><b>Vegan</b></p>
+            <p class="text-gray-600"><b>Vegan</b></p>
             <p
               :class="
                 product.vegan === 'ja' ? 'text-green-500' : 'text-red-500'
@@ -85,7 +85,7 @@
           <div
             class="flex flex-col justify-center items-center gap-1 border-r-2 pr-5"
           >
-            <p><b>Vegetarian</b></p>
+            <p class="text-gray-600"><b>Vegetarian</b></p>
             <p
               :class="
                 product.vegetarian === 'ja' ? 'text-green-500' : 'text-red-500'
@@ -97,7 +97,7 @@
           <div
             class="flex flex-col justify-center items-center gap-1 border-r-2 pr-5"
           >
-            <p><b>Alkohol</b></p>
+            <p class="text-gray-600"><b>Alkohol</b></p>
             <p
               :class="
                 product.alcohol === 'nein' ? 'text-green-500' : 'text-red-500'
@@ -107,7 +107,7 @@
             </p>
           </div>
           <div class="flex flex-col justify-center items-center gap-1">
-            <p><b>Allergien</b></p>
+            <p class="text-gray-600"><b>Allergien</b></p>
             <p
               :class="
                 product.allergic === 'nein' ? 'text-green-500' : 'text-red-500'

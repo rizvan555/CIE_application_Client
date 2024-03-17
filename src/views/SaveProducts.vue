@@ -5,9 +5,9 @@
 
   <div class="flex flex-col items-center my-2">
     <div class="flex gap-48">
-      <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-3 text-gray-600">
         <div class="form-group flex items-center gap-2">
-          <h3 class="w-[10vw] font-semibold text-[20px]">Firma:</h3>
+          <h3 class="w-[10vw] font-semibold text-[18px]">Firma:</h3>
           <input
             required
             v-model="company"
@@ -18,7 +18,7 @@
           />
         </div>
         <div class="form-group flex items-center gap-2">
-          <h3 class="w-[10vw] font-semibold text-[20px]">Marke:</h3>
+          <h3 class="w-[10vw] font-semibold text-[18px]">Marke:</h3>
           <input
             required
             v-model="brand"
@@ -29,7 +29,7 @@
           />
         </div>
         <div class="flex items-center gap-2">
-          <h3 class="w-[10vw] font-semibold text-[20px]">Model:</h3>
+          <h3 class="w-[10vw] font-semibold text-[18px]">Produkt:</h3>
           <input
             required
             v-model="model"
@@ -40,7 +40,10 @@
           />
         </div>
         <div class="flex items-center gap-2">
-          <h3 class="w-[10vw] font-semibold text-[20px]">Gewicht (g):</h3>
+          <h3 class="flex items-center gap-1 w-[10vw] text-[18px]">
+            <p class="font-semibold">Gewicht</p>
+            <p class="text-[14px]">(g/ml):</p>
+          </h3>
           <input
             required
             v-model="weight"
@@ -48,12 +51,14 @@
             type="text"
             aria-label="weight"
             name="weight"
-            @input="formatWeight"
           />
         </div>
 
         <div class="flex items-center gap-2">
-          <h3 class="w-[10vw] font-semibold text-[20px]">Eiweiß(g):</h3>
+          <h3 class="flex items-center gap-1 w-[10vw] text-[18px]">
+            <p class="font-semibold">Eiweiß</p>
+            <p class="text-[14px]">(g/ml):</p>
+          </h3>
           <input
             required
             v-model="protein"
@@ -64,7 +69,10 @@
           />
         </div>
         <div class="flex items-center gap-2">
-          <h3 class="w-[10vw] font-semibold text-[20px]">Kalorien(kcal):</h3>
+          <h3 class="flex items-center gap-1 w-[10vw] text-[18px]">
+            <p class="font-semibold">Kalorien</p>
+            <p class="text-[14px]">(kcal):</p>
+          </h3>
           <input
             required
             v-model="calories"
@@ -75,7 +83,10 @@
           />
         </div>
         <div class="flex items-center gap-2">
-          <h3 class="w-[10vw] font-semibold text-[20px]">Zucker(g):</h3>
+          <h3 class="flex items-center gap-1 w-[10vw] text-[18px]">
+            <p class="font-semibold">Zucker</p>
+            <p class="text-[14px]">(g/ml):</p>
+          </h3>
           <input
             required
             v-model="sugar"
@@ -86,7 +97,10 @@
           />
         </div>
         <div class="flex items-center gap-2">
-          <h3 class="w-[10vw] font-semibold text-[20px]">Salz(g):</h3>
+          <h3 class="flex items-center gap-1 w-[10vw] text-[18px]">
+            <p class="font-semibold">Salz</p>
+            <p class="text-[14px]">(g/ml):</p>
+          </h3>
           <input
             required
             v-model="salt"
@@ -98,8 +112,9 @@
         </div>
 
         <div class="flex items-center gap-2">
-          <h3 class="w-[10vw] font-semibold text-xl">Produkt Bild:</h3>
+          <h3 class="w-[10vw] font-semibold text-[18px]">Produkt Bild:</h3>
           <input
+            v-modal="image"
             class="form-control w-[30vw] text-[15px]"
             type="file"
             id="formFileMultiple"
@@ -110,7 +125,7 @@
         </div>
       </div>
 
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-2 text-gray-600">
         <div class="flex gap-2 items-center">
           <h4 class="w-[8vw] font-semibold text-[18px]">Halal:</h4>
           <select
@@ -167,7 +182,7 @@
           <h4 class="w-[8vw] font-semibold text-[18px]">Allergien:</h4>
           <select
             class="form-select w-[6vw]"
-            @change="changeBackgroundColor($event, '2')"
+            @change="changeBackgroundColor($event, '2'), checkOptions()"
             v-model="allergic"
             name="allergic"
             required
@@ -180,7 +195,7 @@
           <h4 class="w-[8vw] font-semibold text-[18px]">Erdnuss:</h4>
           <select
             class="form-select w-[6vw]"
-            @change="changeBackgroundColor($event, '2')"
+            @change="changeBackgroundColor($event, '2'), checkOptions()"
             v-model="peanut"
             name="peanut"
             required
@@ -193,7 +208,7 @@
           <h4 class="w-[8vw] font-semibold text-[18px]">Gluten:</h4>
           <select
             class="form-select w-[6vw]"
-            @change="changeBackgroundColor($event, '2')"
+            @change="changeBackgroundColor($event, '2'), checkOptions()"
             v-model="gluten"
             name="gluten"
             required
@@ -206,7 +221,7 @@
           <h4 class="w-[8vw] font-semibold text-[18px]">Fisch:</h4>
           <select
             class="form-select w-[6vw]"
-            @change="changeBackgroundColor($event, '2')"
+            @change="changeBackgroundColor($event, '2'), checkOptions()"
             v-model="fish"
             name="fish"
             required
@@ -219,7 +234,7 @@
           <h4 class="w-[8vw] font-semibold text-[18px]">Krebstiere:</h4>
           <select
             class="form-select w-[6vw]"
-            @change="changeBackgroundColor($event, '2')"
+            @change="changeBackgroundColor($event, '2'), checkOptions()"
             v-model="crustaceans"
             name="crustaceans"
             required
@@ -232,7 +247,7 @@
           <h4 class="w-[8vw] font-semibold text-[18px]">Lupinen:</h4>
           <select
             class="form-select w-[6vw]"
-            @change="changeBackgroundColor($event, '2')"
+            @change="changeBackgroundColor($event, '2'), checkOptions()"
             v-model="lupins"
             name="lupins"
             required
@@ -245,7 +260,7 @@
           <h4 class="w-[8vw] font-semibold text-[18px]">Kuhmilch:</h4>
           <select
             class="form-select w-[6vw]"
-            @change="changeBackgroundColor($event, '2')"
+            @change="changeBackgroundColor($event, '2'), checkOptions()"
             v-model="cowsmilk"
             name="cowsmilk"
             required
@@ -258,7 +273,7 @@
           <h4 class="w-[8vw] font-semibold text-[18px]">Nüsse:</h4>
           <select
             class="form-select w-[6vw]"
-            @change="changeBackgroundColor($event, '2')"
+            @change="changeBackgroundColor($event, '2'), checkOptions()"
             v-model="nuts"
             name="nuts"
             required
@@ -268,98 +283,55 @@
           </select>
         </div>
       </div>
+      <div
+        id="successModal"
+        class="modal fade"
+        tabindex="-1"
+        aria-labelledby="successModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5
+                class="modal-title flex items-center gap-2"
+                id="successModalLabel"
+              >
+                <OkIcon class="w-8 h-8 text-green-500" />
+                <p class="font-semibold text-[18px]">Erfolgreich!</p>
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body px-6">
+              Das Produkt wurde erfolgreich hinzugefügt.
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Ok
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <button
-      class="btn btn-primary mt-14 mb-20 w-[30vw] active:scale-95 transition-all"
+      class="btn btn-primary mt-14 mb-20 w-[22vw] active:scale-95 transition-all font-semibold"
       type="submit"
       @click="handleSubmit"
     >
       Enter
     </button>
   </div>
-
-  <v-table
-    density="compact"
-    v-if="showSubmittedInputs"
-    class="w-[95vw] mx-auto"
-  >
-    <thead>
-      <tr class="bg-slate-100">
-        <th class="text-[15px] font-bold w-[10vw]">FIRMA</th>
-        <th class="text-[15px] font-bold w-[10vw]">MARKE</th>
-        <th class="text-[15px] font-bold w-[10vw]">MODEL</th>
-        <th class="text-[15px] font-bold w-[10vw]">GEWICHT (kg)</th>
-        <th class="text-[15px] font-bold w-[10vw]">BILD</th>
-        <th class="text-[15px] font-bold w-[10vw]">HALAL</th>
-        <th class="text-[15px] font-bold w-[10vw]">VEGAN</th>
-        <th class="text-[15px] font-bold w-[10vw]">VEGETARIAN</th>
-        <th class="text-[15px] font-bold w-[10vw]">ALKOHOL</th>
-        <th class="text-[15px] font-bold w-[10vw]">ALLERGIEN</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="text-[15px] w-[20vw]">{{ company }}</td>
-        <td class="text-[15px] w-[20vw]">{{ brand }}</td>
-        <td class="text-[15px] w-[20vw]">{{ model }}</td>
-        <td class="text-[15px] w-[20vw]">{{ weight }}</td>
-        <td class="text-[15px] w-[20vw]">
-          <img
-            v-if="selectedImage"
-            :src="selectedImage"
-            alt="Image of the product"
-            style="max-width: 50px; max-height: 55px"
-          />
-        </td>
-        <td class="text-[15px] w-[20vw]">
-          <span
-            :class="{
-              'text-green-500': halal === '1',
-              'text-red-500': halal === '2',
-            }"
-            >{{ halal === '1' ? 'Ja' : 'Nein' }}</span
-          >
-        </td>
-        <td class="text-[15px] w-[20vw]">
-          <span
-            :class="{
-              'text-green-500': vegan === '1',
-              'text-red-500': vegan === '2',
-            }"
-            >{{ vegan === '1' ? 'Ja' : 'Nein' }}</span
-          >
-        </td>
-        <td class="text-[15px] w-[20vw]">
-          <span
-            :class="{
-              'text-green-500': vegetarian === '1',
-              'text-red-500': vegetarian === '2',
-            }"
-            >{{ vegetarian === '1' ? 'Ja' : 'Nein' }}</span
-          >
-        </td>
-        <td class="text-[15px] w-[20vw]">
-          <span
-            :class="{
-              'text-red-500': alcohol === '1',
-              'text-green-500': alcohol === '2',
-            }"
-            >{{ alcohol === '1' ? 'Ja' : 'Nein' }}</span
-          >
-        </td>
-        <td class="text-[15px] w-[20vw]">
-          <span
-            :class="{
-              'text-red-500': allergic === '1',
-              'text-green-500': allergic === '2',
-            }"
-            >{{ allergic === '1' ? 'Ja' : 'Nein' }}</span
-          >
-        </td>
-      </tr>
-    </tbody>
-  </v-table>
 </template>
 
 <script setup lang="ts">
@@ -367,6 +339,7 @@ import { ref } from 'vue';
 import * as Yup from 'yup';
 import { VTable } from 'vuetify/components';
 import axios from 'axios';
+import OkIcon from '../assets/Icons/OkIcon.vue';
 
 const company = ref('');
 const brand = ref('');
@@ -400,9 +373,31 @@ const checkOptions = () => {
   } else if (alcohol.value === '1') {
     halal.value = '2';
     halalDisabled = true;
+  } else if (peanut.value === '1') {
+    allergic.value = '1';
+    allergicDisabled = true;
+  } else if (gluten.value === '1') {
+    allergic.value = '1';
+    allergicDisabled = true;
+  } else if (fish.value === '1') {
+    allergic.value = '1';
+    allergicDisabled = true;
+  } else if (crustaceans.value === '1') {
+    allergic.value = '1';
+    allergicDisabled = true;
+  } else if (lupins.value === '1') {
+    allergic.value = '1';
+    allergicDisabled = true;
+  } else if (cowsmilk.value === '1') {
+    allergic.value = '1';
+    allergicDisabled = true;
+  } else if (nuts.value === '1') {
+    allergic.value = '1';
+    allergicDisabled = true;
   } else {
     alcoholDisabled = false;
     halalDisabled = false;
+    allergicDisabled = false;
   }
 };
 
@@ -468,6 +463,17 @@ const handleSubmit = async (e: any) => {
       vegetarian: Yup.string().required('Bitte wähle eine Option'),
       alcohol: Yup.string().required('Bitte wähle eine Option'),
       allergic: Yup.string().required('Bitte wähle eine Option'),
+      peanut: Yup.string().required('Bitte wähle eine Option'),
+      gluten: Yup.string().required('Bitte wähle eine Option'),
+      fish: Yup.string().required('Bitte wähle eine Option'),
+      crustaceans: Yup.string().required('Bitte wähle eine Option'),
+      lupins: Yup.string().required('Bitte wähle eine Option'),
+      cowsmilk: Yup.string().required('Bitte wähle eine Option'),
+      nuts: Yup.string().required('Bitte wähle eine Option'),
+      protein: Yup.number().required('Eiweiß ist erforderlich'),
+      calories: Yup.number().required('Kalorien ist erforderlich'),
+      sugar: Yup.number().required('Zucker ist erforderlich'),
+      salt: Yup.number().required('Salz ist erforderlich'),
     });
 
     await schema.validate({
@@ -549,6 +555,10 @@ const handleSubmit = async (e: any) => {
     salt.value = '';
 
     resetBackgroundColor();
+    var myModal = new bootstrap.Modal(document.getElementById('successModal'), {
+      keyboard: false,
+    });
+    myModal.show();
   } catch (error) {
     console.error('Submission Error:', error.message);
   }

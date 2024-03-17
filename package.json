@@ -21,6 +21,7 @@
     "@vue/composition-api": "^1.7.2",
     "axios": "^1.6.1",
     "bcryptjs": "^2.4.3",
+    "bootstrap-icons": "^1.11.3",
     "cypress-downloadfile": "^1.2.3",
     "dotenv": "^16.3.1",
     "jsonwebtoken": "^9.0.2",

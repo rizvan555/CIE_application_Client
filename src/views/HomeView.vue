@@ -1,5 +1,5 @@
 <template>
-  <div class="h-[100vh] overflow-scroll">
+  <div class="h-[90vh] overflow-scroll font-open-sans">
     <h1 class="text-center my-7 font-bold text-4xl">Produkt Suche</h1>
     <div class="input-group my-10 w-[50vw] mx-auto">
       <input
@@ -35,19 +35,19 @@
         >
           <div class="flex border-b-2 py-2">
             <div class="flex flex-col gap-2 px-3 py-2 text-start">
-              <div class="flex items-center gap-4">
+              <div class="flex items-start gap-4">
                 <p class="w-20"><b>Company:</b></p>
                 <p class="w-40">{{ product.company }}</p>
               </div>
-              <div class="flex items-center gap-4">
+              <div class="flex items-start gap-4">
                 <p class="w-20"><b>Brand:</b></p>
                 <p class="w-40">{{ product.brand }}</p>
               </div>
-              <div class="flex items-center gap-4">
+              <div class="flex items-start gap-4">
                 <p class="w-20"><b>Product:</b></p>
                 <p class="w-40">{{ product.model }}</p>
               </div>
-              <div class="flex items-center gap-4">
+              <div class="flex items-start gap-4">
                 <p class="w-20"><b>Weight:</b></p>
                 <p class="w-40">{{ product.weight }} (g)</p>
               </div>
@@ -61,7 +61,7 @@
             </div>
           </div>
 
-          <div class="flex gap-9 my-2">
+          <div class="flex gap-9 my-2 pb-2">
             <div
               class="flex flex-col justify-center items-center gap-1 border-r-2 pr-5"
             >
@@ -140,6 +140,7 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import OpenSans from '../../assets/fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf';
 
 const search = ref('');
 const searchData = ref([]);

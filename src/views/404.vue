@@ -1,8 +1,6 @@
 <template>
-  <div class="flex justify-center items-center mx-auto gap-10">
-    <div class="flex w-[35vw]">
-      ERROR 404
-    </div>
+  <div class="flex justify-center items-center mx-auto gap-10 h-[70vh]">
+    <div class="flex w-[35vw]">ERROR 404</div>
     <div class="flex flex-col w-[30vw]">
       <div class="flex flex-col mb-6">
         <p class="font-bold text-4xl mb-1">HOPLAAA .....</p>
@@ -16,5 +14,4 @@
   </div>
 </template>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>

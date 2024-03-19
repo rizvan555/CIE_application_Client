@@ -90,3 +90,21 @@
     transform: translateX(-200%);
   }
 }
+
+@font-face {
+  font-family: 'Cantata One';
+  src: url('../assets/fonts/Cantata_One/CantataOne-Regular.ttf')
+    format('truetype');
+}
+.font-cantata {
+  font-family: 'Cantata One', sans-serif;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../assets/fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf')
+    format('truetype');
+}
+.font-open-sans {
+  font-family: 'Open Sans', sans-serif;
+}

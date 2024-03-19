@@ -1,5 +1,5 @@
 <template>
-  <div class="h-[80vh] overflow-scroll">
+  <div class="h-[80vh] overflow-scroll font-open-sans">
     <div class="mt-[5vw] select-box py-14 w-[60vw] mx-auto relative">
       <div class="flex items-center justify-center w-[60vw] mx-auto">
         <div class="flex items-center justify-center mx-auto gap-5">
@@ -455,7 +455,7 @@
         :pauseFor="3000"
       />
     </div> -->
-    <div class="pt-6 px-3 text-center text-[17px] text-slate-700 animated-text">
+    <div class="pt-6 px-3 text-center text-[17px] text-red-500 animated-text">
       <h1>
         Für weitere Informationen klicken Sie auf eines der Kriterien Halal,
         Vegan, Vegetarian, Alkohol oder Allergien ...
@@ -471,6 +471,7 @@ import { useRouter, useRoute } from 'vue-router';
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 import LeftArrow from '../assets/Icons/LeftArrow.vue';
+import OpenSans from '../../assets/fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf';
 
 const selectedProduct = ref({});
 const router = useRouter();

@@ -1,36 +1,39 @@
 <template>
   <div class="h-[90vh] overflow-scroll font-open-sans">
     <h1 class="text-center my-7 font-bold text-4xl">Produkt Suche</h1>
-    <div class="input-group my-10 w-[50vw] mx-auto">
-      <input
-        v-model="search"
-        type="text"
-        class="form-control"
-        placeholder=""
-        aria-describedby="button-addon2"
-        name="search"
-        @keyup.enter="handleSubmit"
-      />
-      <button
-        class="btn btn-outline-secondary"
-        type="submit"
-        id="button-addon2"
-        @click="handleSubmit"
-      >
-        Suche
+    <div class="flex my-10 w-[50vw] mx-auto gap-2">
+      <button @click="toggleCameraState" class="icon-button">
+        <QrcodeOutlined class="icon" />
       </button>
+      <div class="input-group w-[50vw] mx-auto">
+        <input
+          v-model="search"
+          type="text"
+          class="form-control"
+          placeholder=""
+          aria-describedby="button-addon2"
+          name="search"
+          @keyup.enter="handleSubmit"
+        />
+        <button
+          class="btn btn-outline-secondary"
+          type="submit"
+          id="button-addon2"
+          @click="handleSubmit"
+          :disabled="!cameraActive && !search.length > 0"
+        >
+          Suche
+        </button>
+      </div>
+    </div>
 
-      <button @click="toggleCameraState">
-        <QrcodeOutlined />
-      </button>
-
+    <div class="w-[30vw] mx-auto" v-if="!searchData.length > 0">
       <qrcode-stream
         :formats="barcodeFormats"
         :paused="paused"
         @detect="onDetect"
         @error="onError"
         @camera-on="resetValidationState"
-        class="w-[100vw] mt-5"
         v-if="!cameraActive"
       >
         <div v-if="validationSuccess" class="validation-success">OK</div>
@@ -43,7 +46,17 @@
           </p>
         </div>
       </qrcode-stream>
+      <qrcode-capture
+        :formats="barcodeFormats"
+        :paused="paused"
+        @detect="onDetect"
+        @error="onError"
+        @camera-on="resetValidationState"
+        class="mt-5"
+        v-if="!cameraActive"
+      ></qrcode-capture>
     </div>
+
     <div class="grid grid-cols-2 w-[80vw] mx-auto gap-4">
       <button
         class=""
@@ -230,13 +243,22 @@ const barcodeFormats = [
   'upc_e',
   'unknown',
 ];
+const toggleCameraState = async () => {
+  if (!cameraActive.value) {
+    console.log('Kamera aktif');
+    searchData.value = [];
 
-const toggleCameraState = () => {
-  cameraActive.value = !cameraActive.value;
-  if (cameraActive.value) {
-    console.log('Kamera active');
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+
+      // const videoElement = document.createElement('video');
+      // videoElement.srcObject = stream;
+      // document.body.appendChild(videoElement);
+    } catch (error) {
+      console.error('Kamera erişimi başarısız:', error);
+    }
   } else {
-    console.log('Kamera inactive');
+    console.log('Kamera pasif');
   }
 };
 

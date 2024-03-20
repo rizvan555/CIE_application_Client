@@ -108,3 +108,15 @@
 .font-open-sans {
   font-family: 'Open Sans', sans-serif;
 }
+
+.icon-button {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+}
+
+.icon {
+  font-size: 40px;
+}

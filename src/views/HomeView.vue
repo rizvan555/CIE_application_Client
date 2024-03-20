@@ -19,8 +19,31 @@
       >
         Suche
       </button>
-    </div>
 
+      <button @click="toggleCameraState">
+        <QrcodeOutlined />
+      </button>
+
+      <qrcode-stream
+        :formats="barcodeFormats"
+        :paused="paused"
+        @detect="onDetect"
+        @error="onError"
+        @camera-on="resetValidationState"
+        class="w-[100vw] mt-5"
+        v-if="!cameraActive"
+      >
+        <div v-if="validationSuccess" class="validation-success">OK</div>
+        <div v-if="validationFailure" class="validation-failure">ERROR</div>
+        <div v-if="validationPending" class="validation-pending">READING</div>
+        <div class="loading-indicator" v-if="!cameraDetected">
+          <p class="text-secondary">
+            Durch die Gewährung des Zugriffs auf die Kamera können Sie die
+            manuelle Eingabe des Codes durch Scannen vermeiden.
+          </p>
+        </div>
+      </qrcode-stream>
+    </div>
     <div class="grid grid-cols-2 w-[80vw] mx-auto gap-4">
       <button
         class=""
@@ -31,7 +54,7 @@
         @click="() => selectResultProduct(product.id)"
       >
         <div
-          class="flex flex-col items-center gap-1 border rounded px-3 py-0 hover:scale-105 transition-all result-box"
+          class="flex flex-col items-center gap-1 border rounded px-3 mb-6 hover:scale-105 transition-all result-box"
         >
           <div class="flex border-b-2 py-2">
             <div class="flex flex-col gap-2 px-3 py-2 text-start">
@@ -137,15 +160,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted, defineProps, getCurrentInstance } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import OpenSans from '../../assets/fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf';
+import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader';
+import { computed } from 'vue';
+import { QrcodeOutlined } from '@ant-design/icons-vue';
 
+const decodedString = ref('');
 const search = ref('');
 const searchData = ref([]);
 const selectedProduct = ref({});
 const router = useRouter();
+const isValid = ref(undefined);
+const paused = ref(false);
+const result = ref(null);
+const cameraDetected = ref(false);
+const instance = getCurrentInstance();
+const cameraActive = ref(false);
+const toggleCamera = ref(false);
 
 const handleSubmit = async () => {
   try {
@@ -178,5 +212,64 @@ const selectResultProduct = async (productId: number) => {
   } catch (error) {
     console.error('error', error);
   }
+};
+
+const barcodeFormats = [
+  'aztec',
+  'code_128',
+  'code_39',
+  'code_93',
+  'codabar',
+  'data_matrix',
+  'ean_13',
+  'ean_8',
+  'itf',
+  'pdf417',
+  'qr_code',
+  'upc_a',
+  'upc_e',
+  'unknown',
+];
+
+const toggleCameraState = () => {
+  cameraActive.value = !cameraActive.value;
+  if (cameraActive.value) {
+    console.log('Kamera active');
+  } else {
+    console.log('Kamera inactive');
+  }
+};
+
+const validationPending = computed(
+  () => isValid.value === undefined && paused.value
+);
+const validationSuccess = computed(() => isValid.value === true);
+const validationFailure = computed(() => isValid.value === false);
+
+const onError = console.error;
+
+const resetValidationState = () => {
+  isValid.value = undefined;
+  cameraDetected.value = true;
+};
+
+const onDetect = async ([firstDetectedCode]) => {
+  result.value = firstDetectedCode.rawValue;
+  paused.value = true;
+
+  const decodedUrl = firstDetectedCode.rawValue;
+  window.location.href = decodedUrl;
+
+  await timeout(2000);
+  isValid.value = result.value.length > 5;
+
+  await timeout(1500);
+  paused.value = false;
+};
+
+const timeout = (ms) => {
+  return new Promise((resolve) => {
+    window.setTimeout(resolve, ms);
+  });
 };
 </script>

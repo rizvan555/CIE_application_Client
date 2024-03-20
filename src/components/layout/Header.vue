@@ -1,10 +1,20 @@
 <template>
   <div
-    class="flex items-center justify-between w-100% bg-slate-700 px-8 py-4 font-open-sans"
+    class="flex items-center justify-between w-100% bg-slate-700 px-8 py-3 font-open-sans"
   >
-    <a href="/home" class="text-2xl font-bold text-white font-cantata"
-      >Darf ich Essen ?</a
+    <a
+      href="/home"
+      class="flex flex-col text-[14px] font-bold text-white font-cantata relative pl-4 leading-[0.3]"
     >
+      <p>Darf</p>
+      <p>ich</p>
+      <p>Essen</p>
+      <img
+        src="../../assets/logo/LogoEat.png"
+        alt="LogoEat"
+        class="h-12 w-12 absolute right-[-25px] top-1"
+      />
+    </a>
     <div v-for="user in users" class="flex items-center pr-8 gap-3">
       <h2 class="text-white text-xl font-semibold">
         Hallo, {{ user.username }}
@@ -60,6 +70,7 @@ import { VList, VListItem, VListItemTitle, VMenu } from 'vuetify/components';
 import { useNavbarStore } from '../../stores/useNavbar';
 import Cantata_One from '../../assets/fonts/Cantata_One/CantataOne-Regular.ttf';
 import OpenSans from '../../assets/fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf';
+import LogoEat from '../../assets/logo/LogoEat.png';
 
 const users = ref([]);
 

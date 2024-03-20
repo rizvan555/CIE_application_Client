@@ -45,6 +45,6 @@ const signOut = () => {
 };
 
 const toHomePage = () => {
-  router.push('/');
+  router.push('/home');
 };
 </script>

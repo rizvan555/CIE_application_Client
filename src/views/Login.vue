@@ -1,5 +1,5 @@
 <template>
-  <div class="h-[70vh]">
+  <div class="h-[70vh]" v-if="!token">
     <div
       class="auth-page reg-container pb-10 w-[35vw] mt-[10vh] rounded mx-auto bg-slate-50"
     >
@@ -70,6 +70,7 @@
       </div>
     </div>
   </div>
+  <ErrorPage v-else />
 </template>
 
 <script setup lang="ts">
@@ -79,7 +80,9 @@ import * as Yup from 'yup';
 import axios from '../api/axios';
 import { getItem, setItem } from '../helper/persistanceStorage';
 import router from '../router/index';
+import ErrorPage from '../views/404.vue';
 
+const token = getItem('token');
 const formData = ref<FormDataLogin>({
   username: '',
   password: '',

@@ -5,7 +5,7 @@
 
   <div class="flex flex-col items-center my-2">
     <div class="flex gap-48">
-      <div class="flex flex-col gap-3 text-gray-600">
+      <div class="flex flex-col gap-2 text-gray-600">
         <div class="form-group flex items-center gap-2">
           <h3 class="w-[10vw] font-semibold text-[18px]">Firma:</h3>
           <input
@@ -110,7 +110,6 @@
             name="salt"
           />
         </div>
-
         <div class="flex items-center gap-2">
           <h3 class="w-[10vw] font-semibold text-[18px]">Produkt Bild:</h3>
           <input
@@ -125,7 +124,7 @@
         </div>
       </div>
 
-      <div class="flex flex-col gap-2 text-gray-600">
+      <div class="flex flex-col gap-1 text-gray-600">
         <div class="flex gap-2 items-center">
           <h4 class="w-[8vw] font-semibold text-[18px]">Halal:</h4>
           <select
